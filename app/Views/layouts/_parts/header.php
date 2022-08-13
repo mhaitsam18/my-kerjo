@@ -57,7 +57,7 @@
                                 <div class="notif-center">
                                     <a href="#">
                                         <div class="notif-img">
-                                            <img src="assets/img/jm_denis.jpg" alt="Img Profile">
+                                            <img src="<?= base_url() ?>assets/img/jm_denis.jpg" alt="Img Profile">
                                         </div>
                                         <div class="notif-content">
                                             <span class="subject">Jimmy Denis</span>
@@ -69,7 +69,7 @@
                                     </a>
                                     <a href="#">
                                         <div class="notif-img">
-                                            <img src="assets/img/chadengle.jpg" alt="Img Profile">
+                                            <img src="<?= base_url() ?>assets/img/chadengle.jpg" alt="Img Profile">
                                         </div>
                                         <div class="notif-content">
                                             <span class="subject">Chad</span>
@@ -81,7 +81,7 @@
                                     </a>
                                     <a href="#">
                                         <div class="notif-img">
-                                            <img src="assets/img/mlane.jpg" alt="Img Profile">
+                                            <img src="<?= base_url() ?>assets/img/mlane.jpg" alt="Img Profile">
                                         </div>
                                         <div class="notif-content">
                                             <span class="subject">Jhon Doe</span>
@@ -93,7 +93,7 @@
                                     </a>
                                     <a href="#">
                                         <div class="notif-img">
-                                            <img src="assets/img/talha.jpg" alt="Img Profile">
+                                            <img src="<?= base_url() ?>assets/img/talha.jpg" alt="Img Profile">
                                         </div>
                                         <div class="notif-content">
                                             <span class="subject">Talha</span>

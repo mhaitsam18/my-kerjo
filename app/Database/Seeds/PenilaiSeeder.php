@@ -4,6 +4,7 @@ namespace App\Database\Seeds;
 
 use App\Models\PenilaiModel;
 use CodeIgniter\Database\Seeder;
+use CodeIgniter\I18n\Time;
 
 class PenilaiSeeder extends Seeder
 {

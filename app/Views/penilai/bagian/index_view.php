@@ -17,7 +17,61 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <a href="<?= base_url("penilai/kelola-bagian/tambah"); ?>" class="btn btn-primary">Tambah Data Mobil dan Tugas</a>
+                        <!-- <a href="<?= base_url("penilai/kelola-bagian/tambah"); ?>" class="btn btn-primary">Tambah Data Mobil dan Tugas</a> -->
+                        <h2>Form Penugasan</h2>
+                        <div class="row" style="height: 550px;">
+                            <div class="col-md-6">
+                                <form action="<?= base_url('Penilai/Bagian/insertTugas') ?>" method="post">
+                                    <div class="form-group">
+                                        <label for="id_pekerjaan">Nama Tugas</label>
+                                        <select class="form-control id_pekerjaan" name="id_pekerjaan" id="id_pekerjaan">
+                                            <option value="" selected disabled>Pilih Tugas</option>
+                                            <?php foreach ($data_pekerjaan as $pekerjaan) : ?>
+                                                <option value="<?= $pekerjaan['id'] ?>"><?= $pekerjaan['nama_pekerjaan'] ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="plat_mobil">Plat Mobil</label>
+                                        <input type="text" class="form-control" name="plat_mobil" id="plat_mobil">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="nama_mobil">Nama Mobil</label>
+                                        <input type="text" class="form-control" name="nama_mobil" id="nama_mobil">
+                                    </div>
+                                    <h4>List Pegawai</h4>
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">No.</th>
+                                                <th scope="col">Nama Pegawai</th>
+                                                <th scope="col">Check</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php $no = 1;
+                                            foreach ($data_pegawai as $pegawai) : ?>
+                                                <tr>
+                                                    <th scope="row"><?= $no++ ?></th>
+                                                    <td><?= $pegawai['nama_lengkap'] ?></td>
+                                                    <td>
+                                                        <div class="form-group">
+                                                            <input class="form-check-input" type="checkbox" name="id_pegawai[]" value="<?= $pegawai['id'] ?>" id="id_pegawai<?= $pegawai['id'] ?>">
+                                                            <label class="form-check-label" for="id_pegawai<?= $pegawai['id'] ?>">
+                                                                Pilih
+                                                            </label>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            <?php endforeach; ?>
+                                        </tbody>
+                                    </table>
+                                    <button type="submit" class="btn btn-info btn-sm float-right">Tambah</button>
+                                </form>
+                            </div>
+                            <div class="col-md-6" id="rincian">
+                            </div>
+                        </div>
                     </div>
                     <div class="card-body">
 
@@ -42,7 +96,7 @@
                                 <tbody>
                                     <?php foreach ($data_bagian as $bagian) : ?>
                                         <tr>
-                                            <td><?= $bagian["nama_bagian"]; ?></td>
+                                            <td><?= $bagian["nama_pekerjaan"]; ?></td>
                                             <td><?= $bagian["plat_mobil"] ?></td>
                                             <td><?= $bagian["nama_mobil"] ?></td>
                                             <td><?= $bagian["nama_pegawai"] ?></td>
@@ -66,4 +120,23 @@
 
     </div>
 </div>
+<?= $this->endSection(); ?>
+
+<?= $this->section("scripts"); ?>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+<script>
+    $("#id_pekerjaan").change(function() {
+        var id_pekerjaan = $(".id_pekerjaan").val();
+        $.ajax({
+            url: "<?= base_url('penilai/bagian/rincian') ?>",
+            type: "post",
+            data: {
+                id_pekerjaan: id_pekerjaan
+            },
+            success: function(data) {
+                $('#rincian').html(data);
+            }
+        });
+    });
+</script>
 <?= $this->endSection(); ?>

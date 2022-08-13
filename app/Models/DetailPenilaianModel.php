@@ -50,8 +50,9 @@ class DetailPenilaianModel extends Model
 
     public function getDetailPenilaian($id)
     {
-        $this->select('tugas.nama_tugas, detail_penilaian.status');
+        $this->select('detail_penilaian.id, detail_pekerjaan.detail_pekerjaan, detail_penilaian.status');
         $this->join('tugas', 'detail_penilaian.id_tugas = tugas.id');
+        $this->join('detail_pekerjaan', 'tugas.id_detail_pekerjaan = detail_pekerjaan.id');
         $this->where('detail_penilaian.id_penilaian', $id);
         return $this->findAll();
     }

@@ -18,12 +18,14 @@ class PenilaianTable extends Migration
             'id_penilai' => [
                 'type' => 'INT',
                 'constraint' => 11,
+                'null' => true,
                 'unsigned' => true,
             ],
             'id_pegawai' => [
                 'type' => 'INT',
                 'constraint' => 11,
                 'unsigned' => true,
+                'null' => true,
             ],
             'id_bagian' => [
                 "type" => "INT",

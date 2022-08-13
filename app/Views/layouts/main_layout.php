@@ -16,7 +16,7 @@
             },
             custom: {
                 "families": ["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands", "simple-line-icons"],
-                urls: ['http://localhost:8080/assets/css/fonts.min.css']
+                urls: ['<?= base_url() ?>/assets/css/fonts.min.css']
             },
             active: function() {
                 sessionStorage.fonts = true;
@@ -49,6 +49,7 @@
     </div>
     <!--   Core JS Files   -->
     <script src="<?= base_url("assets/js/core/jquery.3.2.1.min.js"); ?>"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
     <script src="<?= base_url("assets/js/core/popper.min.js"); ?>"></script>
     <script src="<?= base_url("assets/js/core/bootstrap.min.js"); ?>"></script>
 
@@ -135,13 +136,12 @@
             dataType: "JSON",
             success: function(data) {
 
-                console.log(data);
-                
+                // console.log(data);
+
                 $("#totalTugas").html(data.total_tugas);
                 $("#totalInformasi").html(data.total_informasi);
             }
         })
-
     </script>
 
     <?= $this->renderSection("scripts"); ?>

@@ -6,7 +6,7 @@
         <div class="page-inner py-5">
             <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
                 <div>
-                    <h2 class="text-white pb-2 fw-bold">Detail Bagian <?= $data_bagian["nama_bagian"]; ?></h2>
+                    <h2 class="text-white pb-2 fw-bold">Detail Bagian <?= $data_bagian["nama_pekerjaan"]; ?></h2>
                     <p class="text-white">Tambahkan list tugas yang akan diberikan kepada karyawan dengan menggunakan tombol dibawah ini</p>
                 </div>
             </div>
@@ -25,7 +25,7 @@
                                     <tr>
                                         <th>Nama Bagian</th>
                                         <th>:</th>
-                                        <td><?= $data_bagian["nama_bagian"] ?></td>
+                                        <td><?= $data_bagian["nama_pekerjaan"] ?></td>
                                     </tr>
                                     <tr>
                                         <th>Plat Mobil</th>
@@ -56,7 +56,7 @@
                                         <?php foreach ($data_kriteria as $kriteria) : ?>
                                             <tr>
                                                 <td><?= $no++; ?></td>
-                                                <td><?= $kriteria["nama_tugas"]; ?></td>
+                                                <td><?= $kriteria["detail_pekerjaan"]; ?></td>
                                             </tr>
                                         <?php endforeach; ?>
                                     </tbody>

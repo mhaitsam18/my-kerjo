@@ -13,36 +13,31 @@ class BagianSeeder extends Seeder
 
         $bagian->insertBatch([
             [
-                "id_pegawai" => 1,
-                "nama_bagian" => "Cat Mobil",
+                "id_pekerjaan" => 1,
                 "plat_mobil" => "B 1234 B",
                 "nama_mobil" => "Toyota Avanza",
                 "status" => 0
             ],
             [
-                "id_pegawai" => 1,
-                "nama_bagian" => "Tune Up Mobil",
+                "id_pekerjaan" => 2,
                 "plat_mobil" => "B 1234 B",
                 "nama_mobil" => "Honda Brio",
                 "status" => 0,
             ],
             [
-                "id_pegawai" => 1,
-                "nama_bagian" => "Body Repair",
+                "id_pekerjaan" => 3,
                 "plat_mobil" => "B 1234 B",
                 "nama_mobil" => "Toyota Yaris",
                 "status" => 0,
             ],
             [
-                "id_pegawai" => 1,
-                "nama_bagian" => "Detailing Mobil",
+                "id_pekerjaan" => 4,
                 "plat_mobil" => "B 1234 B",
                 "nama_mobil" => "Daihatsu Xenia",
                 "status" => 0,
             ],
             [
-                "id_pegawai" => 1,
-                "nama_bagian" => "Poles Mobil",
+                "id_pekerjaan" => 5,
                 "plat_mobil" => "B 1234 B",
                 "nama_mobil" => "Toyota Corolla",
                 "status" => 0,

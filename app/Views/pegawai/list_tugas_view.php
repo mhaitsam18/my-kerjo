@@ -21,7 +21,7 @@
                             <table id="basic-datatables" class="display table table-striped table-hover">
                                 <thead>
                                     <tr>
-                                        <th>Nama Bagian</th>
+                                        <th>Nama Pekerjaan</th>
                                         <th>Plat Mobil</th>
                                         <th>Nama Mobil</th>
                                         <th>Tugas</th>
@@ -30,7 +30,7 @@
                                 <tbody>
                                     <?php foreach ($list_tugas as $tugas) : ?>
                                         <tr>
-                                            <td><?= $tugas["nama_bagian"]; ?></td>
+                                            <td><?= $tugas["nama_pekerjaan"]; ?></td>
                                             <td><?= $tugas["plat_mobil"]; ?></td>
                                             <td><?= $tugas["nama_mobil"] ?></td>
                                             <td>

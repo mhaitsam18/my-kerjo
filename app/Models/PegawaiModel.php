@@ -56,6 +56,14 @@ class PegawaiModel extends Model
         return $this->find($id);
     }
 
+    public function getPegawaiByIdBagian($id_bagian)
+    {
+        $this->select('pegawai.*');
+        $this->join('bagian_pegawai', 'bagian_pegawai.id_pegawai = pegawai.id');
+        $this->where("bagian_pegawai.id_bagian", $id_bagian);
+        return $this->findAll($id_bagian);
+    }
+
     public function getIdBagianByPegawai($id)
     {
         $this->select('pegawai.id_bagian');

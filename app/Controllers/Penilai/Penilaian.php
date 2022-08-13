@@ -105,12 +105,14 @@ class Penilaian extends BaseController
         $detail_penilaian = $this->detail_penilaian_model->getDetailPenilaian($id);
         $data_penilaian = $this->penilaian_model->find($id);
         $data_pegawai = $this->pegawai_model->find($data_penilaian["id_pegawai"]);
+        $data_bagian = $this->bagian_model->find($data_penilaian["id_bagian"]);
 
         $data = [
             "title" => "Data Keterampilan Karyawan",
             "detail_penilaian" => $detail_penilaian,
             "data_penilaian" => $data_penilaian,
             "data_pegawai" => $data_pegawai,
+            "data_bagian" => $data_bagian,
         ];
 
         return view("penilai/penilaian/detail_keterampilan_view", $data);
@@ -123,5 +125,28 @@ class Penilaian extends BaseController
 
         session()->setFlashdata("success", "Berhasil menghapus data penilaian");
         return redirect()->route("penilai/kelola-penilaian");
+    }
+    public function insertMasukan()
+    {
+        $id = $this->request->getVar('id');
+        $masukan = $this->request->getVar('masukan');
+        $this->penilaian_model->update($id, [
+            'id_penilai' => session()->get('id_penilai'),
+            'masukan' => $masukan,
+        ]);
+
+        session()->setFlashdata("success", "Berhasil menyimpan masukan, Penilaian Selesai");
+        return redirect()->back();
+    }
+    public function updateDetail()
+    {
+        $id = $this->request->getVar('id');
+        $status = $this->request->getVar('status');
+        $this->detail_penilaian_model->update($id, [
+            'id_penilai' => session()->get('id_penilai'),
+            'status' => $status,
+        ]);
+        session()->setFlashdata("success", "Berhasil menyimpan Penilaian");
+        return redirect()->back();
     }
 }

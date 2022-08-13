@@ -17,15 +17,20 @@ class BagianTable extends Migration
                 'unsigned' => true,
                 'auto_increment' => true,
             ],
-            'id_pegawai' => [
+            // 'id_pegawai' => [
+            //     'type' => 'INT',
+            //     'constraint' => 11,
+            //     'unsigned' => true,
+            // ],
+            'id_pekerjaan' => [
                 'type' => 'INT',
                 'constraint' => 11,
                 'unsigned' => true,
             ],
-            'nama_bagian' => [
-                'type' => 'VARCHAR',
-                'constraint' => '100',
-            ],
+            // 'nama_bagian' => [
+            //     'type' => 'VARCHAR',
+            //     'constraint' => '100',
+            // ],
             'plat_mobil' => [
                 'type' => 'VARCHAR',
                 'constraint' => '100',
@@ -48,7 +53,7 @@ class BagianTable extends Migration
             ],
         ]);
 
-        $this->forge->addForeignKey('id_pegawai', 'pegawai', 'id', 'CASCADE', 'CASCADE');
+        // $this->forge->addForeignKey('id_pegawai', 'pegawai', 'id', 'CASCADE', 'CASCADE');
         $this->forge->addKey('id', true);
         $this->forge->createTable('bagian');
     }

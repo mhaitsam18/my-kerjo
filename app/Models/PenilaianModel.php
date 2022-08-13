@@ -45,7 +45,7 @@ class PenilaianModel extends Model
     public function getAllPenilaian()
     {
         $this->select("penilaian.*, penilai.nama_lengkap as nama_penilai, penilai.no_telepon as no_telepon_penilai, pegawai.nama_lengkap as nama_pegawai, pegawai.nik, pegawai.no_telepon as no_telepon_pegawai");
-        $this->join("penilai", "penilaian.id_penilai = penilai.id");
+        $this->join("penilai", "penilaian.id_penilai = penilai.id", "left");
         $this->join("pegawai", "penilaian.id_pegawai = pegawai.id");
         $this->orderBy("penilaian.id", "DESC");
         return $this->findAll();
@@ -54,7 +54,7 @@ class PenilaianModel extends Model
     public function getAllPenilaianByIdPegawai($id)
     {
         $this->select("penilaian.*, penilai.nama_lengkap as nama_penilai, penilai.no_telepon as no_telepon_penilai, pegawai.nama_lengkap as nama_pegawai, pegawai.nik, pegawai.no_telepon as no_telepon_pegawai");
-        $this->join("penilai", "penilaian.id_penilai = penilai.id");
+        $this->join("penilai", "penilaian.id_penilai = penilai.id", "left");
         $this->join("pegawai", "penilaian.id_pegawai = pegawai.id");
         $this->where("penilaian.id_pegawai", $id);
         $this->orderBy("penilaian.id", "DESC");
@@ -83,5 +83,4 @@ class PenilaianModel extends Model
         $this->limit(1);
         return $this->findAll();
     }
-
 }

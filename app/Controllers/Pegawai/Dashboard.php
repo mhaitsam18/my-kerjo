@@ -5,6 +5,8 @@ namespace App\Controllers\Pegawai;
 use App\Controllers\BaseController;
 use App\Models\AbsensiModel;
 use App\Models\BagianModel;
+use App\Models\BagianPegawaiModel;
+use App\Models\PegawaiModel;
 use App\Models\DetailPenilaianModel;
 use App\Models\InformasiModel;
 use App\Models\PenilaianModel;
@@ -14,27 +16,31 @@ class Dashboard extends BaseController
 {
     protected $informasi_model;
     protected $penilaian_model;
-    protected $detail_penialain_model;
+    protected $detail_penilaian_model;
+    protected $bagian_pegawai_model;
     protected $bagian_model;
     protected $tugas_model;
     protected $absensi_model;
+    protected $pegawai_model;
 
     public function __construct()
     {
         $this->informasi_model = new InformasiModel();
         $this->penilaian_model = new PenilaianModel();
-        $this->detail_penialain_model = new DetailPenilaianModel();
+        $this->detail_penilaian_model = new DetailPenilaianModel();
         $this->bagian_model = new BagianModel();
         $this->tugas_model = new TugasModel();
         $this->absensi_model = new AbsensiModel();
+        $this->pegawai_model = new PegawaiModel();
+        $this->bagian_pegawai_model = new BagianPegawaiModel();
     }
 
     public function index()
     {
 
-        $tercapai = $this->detail_penialain_model->countTercapaiStatusByPegawai(session()->get('id_pegawai'));
-        $tidak_tercapai = $this->detail_penialain_model->countTidakTercapaiStatusByPegawai(session()->get('id_pegawai'));
-        $status_by_month = $this->detail_penialain_model->showStatusByMonth(session()->get('id_pegawai'));
+        $tercapai = $this->detail_penilaian_model->countTercapaiStatusByPegawai(session()->get('id_pegawai'));
+        $tidak_tercapai = $this->detail_penilaian_model->countTidakTercapaiStatusByPegawai(session()->get('id_pegawai'));
+        $status_by_month = $this->detail_penilaian_model->showStatusByMonth(session()->get('id_pegawai'));
         $absensi = $this->absensi_model->checkAbsensiToday(session()->get('id_pegawai'));
 
         $data = [
@@ -64,12 +70,12 @@ class Dashboard extends BaseController
     {
         $data = [
             "title" => "Detail List Tugas",
-            "data_bagian" => $this->bagian_model->find($id),
+            "data_bagian" => $this->bagian_model->getBagianById($id),
+            "data_pegawai" => $this->pegawai_model->getPegawaiByIdBagian($id),
             "detail_tugas" => $this->tugas_model->getTugasByIdBagian($id),
         ];
 
         return view("pegawai/detail_list_tugas_view", $data);
-
     }
 
     public function get_count_tugas_and_informasi()
@@ -82,5 +88,38 @@ class Dashboard extends BaseController
         echo json_encode($data);
     }
 
+    public function tugas_selesai($id_bagian = null)
+    {
+        $data = ['status' => 1];
+        $this->bagian_model->update($id_bagian, $data);
 
+        $this->bagian_pegawai_model->where('id_bagian', $id_bagian);
+        $bagian_pegawai = $this->bagian_pegawai_model->findAll();
+        foreach ($bagian_pegawai as $bp) {
+            $data_penilaian = [
+                // "id_pegawai" => session()->get('id_pegawai'),
+                "id_pegawai" => $bp['id_pegawai'],
+                "id_bagian" => $id_bagian,
+                "masukan" => "",
+                "tanggal_penilaian" => date("Y-m-d"),
+            ];
+
+            $this->penilaian_model->insert($data_penilaian);
+            $id_penilaian = $this->penilaian_model->insertID();
+
+            $this->tugas_model->where('id_bagian', $id_bagian);
+            $tugas = $this->tugas_model->findALl();
+
+            foreach ($tugas as $t) {
+                $data_detail_penilaian = [
+                    "id_penilaian" => $id_penilaian,
+                    "id_tugas" => $t['id'],
+                    "status" => 0
+                ];
+                $this->detail_penilaian_model->insert($data_detail_penilaian);
+            }
+        }
+        session()->setFlashdata("success", "Pekerjaan Telah Selesai");
+        return redirect()->back();
+    }
 }

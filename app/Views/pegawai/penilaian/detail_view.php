@@ -22,7 +22,7 @@
                                 <div class="col-sm-6">
                                     <div class="row">
                                         <div class="col-sm-3">
-                                            <p>Nama</p>
+                                            <p>Nama Lengkap</p>
                                         </div>
                                         <div class="col-sm-9">
                                             <p>: <?= $data_pegawai["nama_lengkap"] ?></p>
@@ -32,6 +32,22 @@
                                         </div>
                                         <div class="col-sm-9">
                                             <p>: <?= $data_pegawai["nik"] ?></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <p>Nama Mobil</p>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <p>: <?= $data_bagian["nama_mobil"] ?></p>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <p>Plat Mobil</p>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <p>: <?= $data_bagian["plat_mobil"] ?></p>
                                         </div>
                                     </div>
                                 </div>
@@ -46,15 +62,17 @@
                                 </thead>
                                 <tbody>
                                     <?php $no = 1; ?>
-                                    <?php foreach ($detail_penilaian as $penilian) : ?>
+                                    <?php foreach ($detail_penilaian as $penilaian) : ?>
                                         <tr>
                                             <td><?= $no++; ?></td>
-                                            <td><?= $penilian["nama_tugas"]; ?></td>
+                                            <td><?= $penilaian["detail_pekerjaan"]; ?></td>
                                             <td>
-                                                <?php if ($penilian["status"] == 0) : ?>
+                                                <?php if ($penilaian["status"] == 0) : ?>
                                                     <span class="badge badge-warning">Belum Terpenuhi</span>
-                                                <?php else : ?>
+                                                <?php elseif ($penilaian["status"] == 1) : ?>
                                                     <span class="badge badge-success">Terpenuhi</span>
+                                                <?php else : ?>
+                                                    <span class="badge badge-danger">Tidak Terpenuhi</span>
                                                 <?php endif; ?>
                                             </td>
                                         </tr>

@@ -17,7 +17,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <a href="<?= base_url("penilai/kelola-penilaian/tambah"); ?>" class="btn btn-primary">Tambah Penilaian</a>
+                        <!-- <a href="<?= base_url("penilai/kelola-penilaian/tambah"); ?>" class="btn btn-primary">Tambah Penilaian</a> -->
                     </div>
                     <div class="card-body">
                         <?php if (session()->getFlashdata("success")) : ?>
@@ -34,6 +34,7 @@
                                         <th>Nama Karyawan</th>
                                         <th>No HP Karyawan</th>
                                         <th>Nama Penilai</th>
+                                        <th>Status</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -48,7 +49,15 @@
                                             <td><?= $penilaian["no_telepon_pegawai"]; ?></td>
                                             <td><?= $penilaian["nama_penilai"]; ?></td>
                                             <td>
+                                                <?php if ($penilaian["id_penilai"]) : ?>
+                                                    Sudah dinilai
+                                                <?php else : ?>
+                                                    Belum dinilai
+                                                <?php endif; ?>
+                                            </td>
+                                            <td>
                                                 <a href="<?= base_url("penilai/kelola-penilaian/detail/" . $penilaian["id"]); ?>" class="btn btn-info btn-sm">Detail</a>
+                                                <a href="<?= base_url("penilai/kelola-penilaian/detail/" . $penilaian["id"]); ?>" class="btn btn-success btn-sm">Beri Nilai</a>
                                                 <form action="<?= base_url("penilai/kelola-penilaian/hapus/" . $penilaian["id"]); ?>" method="POST" onsubmit="return confirm('Hapus penilaian ?')" class="d-inline">
                                                     <?= csrf_field(); ?>
                                                     <input type="hidden" name="_method" value="DELETE">

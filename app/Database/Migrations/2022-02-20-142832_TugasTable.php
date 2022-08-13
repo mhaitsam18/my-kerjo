@@ -20,9 +20,19 @@ class Tugas extends Migration
                 'constraint' => 11,
                 'unsigned' => true,
             ],
-            'nama_tugas' => [
+            'id_detail_pekerjaan' => [
+                'type' => 'INT',
+                'constraint' => 11,
+                // 'unsigned' => true,
+            ],
+            // 'nama_tugas' => [
+            //     'type' => 'VARCHAR',
+            //     'constraint' => '100',
+            // ],
+            'penilaian' => [
                 'type' => 'VARCHAR',
                 'constraint' => '100',
+                'null' => true,
             ],
             'created_at' => [
                 'type' => 'DATETIME',

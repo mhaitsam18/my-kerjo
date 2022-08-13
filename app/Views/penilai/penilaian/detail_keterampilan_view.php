@@ -41,6 +41,22 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-sm-6">
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <p>Nama Mobil</p>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <p>: <?= $data_bagian["nama_mobil"] ?></p>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <p>Plat Mobil</p>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <p>: <?= $data_bagian["plat_mobil"] ?></p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
                             <table class="table table-bordered">
@@ -48,7 +64,8 @@
                                     <tr>
                                         <th width="100">No</th>
                                         <th>Keterampilan</th>
-                                        <th width="150">Aksi</th>
+                                        <th>Status</th>
+                                        <th width="300">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -56,25 +73,45 @@
                                     <?php foreach ($detail_penilaian as $penilaian) : ?>
                                         <tr>
                                             <td><?= $no++; ?></td>
-                                            <td><?= $penilaian["nama_tugas"]; ?></td>
+                                            <td><?= $penilaian["detail_pekerjaan"]; ?></td>
                                             <td>
                                                 <?php if ($penilaian["status"] == 0) : ?>
                                                     <span class="badge badge-warning">Belum Terpenuhi</span>
-                                                <?php else : ?>
+                                                <?php elseif ($penilaian["status"] == 1) : ?>
                                                     <span class="badge badge-success">Terpenuhi</span>
+                                                <?php else : ?>
+                                                    <span class="badge badge-danger">Tidak Terpenuhi</span>
+                                                <?php endif; ?>
+                                            </td>
+                                            <td>
+                                                <?php if ($penilaian['status'] == 0) : ?>
+                                                    <a href="<?= base_url("Penilai/Penilaian/updateDetail?status=1&id=$penilaian[id]") ?>" class="btn btn-success btn-sm">Terpenuhi</a>
+                                                    <a href="<?= base_url("Penilai/Penilaian/updateDetail?status=2&id=$penilaian[id]") ?>" class="btn btn-danger btn-sm">Tidak Terpenuhi</a>
+                                                <?php else : ?>
+                                                    Sudah dinilai
                                                 <?php endif; ?>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>
                             </table>
-
-                            <div class="masukan">
-                                <h4 class="font-weight-bold">Saran/Masukan : </h4>
-                                <div>
-                                    <?= $data_penilaian["masukan"] ?>
+                            <?php if ($data_penilaian['id_penilai'] == null) : ?>
+                                <form action="<?= base_url('penilai/penilaian/insertMasukan') ?>" method="post">
+                                    <input type="hidden" name="id" value="<?= $data_penilaian['id'] ?>">
+                                    <div class="form-group">
+                                        <label for="masukan">Masukan</label>
+                                        <textarea class="form-control" name="masukan" id="masukan" cols="30" rows="3"><?= $data_penilaian['masukan'] ?></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-success">Selesai</button>
+                                </form>
+                            <?php else : ?>
+                                <div class="masukan">
+                                    <h4 class="font-weight-bold">Saran/Masukan : </h4>
+                                    <div>
+                                        <?= $data_penilaian["masukan"] ?>
+                                    </div>
                                 </div>
-                            </div>
+                            <?php endif; ?>
 
                         </div>
                     </div>

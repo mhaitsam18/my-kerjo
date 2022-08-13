@@ -15,7 +15,7 @@ class BagianModel extends Model
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = [
-        "id", "id_pegawai", "nama_bagian", "plat_mobil", "nama_mobil", "status", "created_at", "updated_at"
+        "id", "id_pegawai", "id_pekerjaan", "plat_mobil", "nama_mobil", "status", "created_at", "updated_at"
     ];
 
     // Dates
@@ -44,26 +44,39 @@ class BagianModel extends Model
 
     public function getAllBagian()
     {
-        $this->select("bagian.*, pegawai.nama_lengkap as nama_pegawai");
-        $this->join("pegawai", "bagian.id_pegawai = pegawai.id");
+        $this->select("bagian.*, nama_pekerjaan, pegawai.nama_lengkap as nama_pegawai");
+        $this->join("bagian_pegawai", "bagian_pegawai.id_bagian = bagian.id");
+        $this->join("pegawai", "bagian_pegawai.id_pegawai = pegawai.id");
+        $this->join("pekerjaan", "bagian.id_pekerjaan = pekerjaan.id");
         $this->orderBy("bagian.id", "DESC");
         return $this->findAll();
     }
 
     public function getBagianByPegawai($id)
     {
-        $this->select("bagian.*, pegawai.nama_lengkap as nama_pegawai");
-        $this->join("pegawai", "bagian.id_pegawai = pegawai.id");
-        $this->where("bagian.id_pegawai", $id);
+        $this->select("bagian.*, nama_pekerjaan, pegawai.nama_lengkap as nama_pegawai");
+        $this->join("bagian_pegawai", "bagian_pegawai.id_bagian = bagian.id");
+        $this->join("pegawai", "bagian_pegawai.id_pegawai = pegawai.id");
+        $this->join("pekerjaan", "bagian.id_pekerjaan = pekerjaan.id");
+        $this->where("bagian_pegawai.id_pegawai", $id);
         $this->orderBy("bagian.id", "DESC");
         return $this->findAll();
+    }
+    public function getBagianById($id)
+    {
+        $this->select("bagian.*, nama_pekerjaan, pegawai.nama_lengkap as nama_pegawai");
+        $this->join("bagian_pegawai", "bagian_pegawai.id_bagian = bagian.id");
+        $this->join("pegawai", "bagian_pegawai.id_pegawai = pegawai.id");
+        $this->join("pekerjaan", "bagian.id_pekerjaan = pekerjaan.id");
+        $this->where("bagian.id", $id);
+        return $this->findAll()[0];
     }
 
     public function countTotalByIdPegawai($id)
     {
         $db = db_connect();
-        $result = $db->query("SELECT COUNT(id) FROM `bagian` WHERE status = 0 AND id_pegawai =1;");
-        return $result->getRowArray()['COUNT(id)'];
+        $result = $db->query("SELECT COUNT(bagian.id) FROM `bagian` JOIN `bagian_pegawai` ON bagian_pegawai.id_bagian = bagian.id WHERE status = 0 AND id_pegawai = $id");
+        return $result->getRowArray()['COUNT(bagian.id)'];
     }
 
     public function updateStatus($id)

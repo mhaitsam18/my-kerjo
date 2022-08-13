@@ -14,115 +14,115 @@ class TugasSeeder extends Seeder
         $tugas->insertBatch([
             [
                 "id_bagian" => 1,
-                "nama_tugas" => "Membersihkan permukaan dengan amplas",
+                "id_detail_pekerjaan" => '1',
             ],
             [
                 "id_bagian" => 1,
-                "nama_tugas" => "Aplikasikan dempul",
+                "id_detail_pekerjaan" => '2',
             ],
             [
                 "id_bagian" => 1,
-                "nama_tugas" => "Pengamplasan permukaan dempul yang tidak rata setelah kering"
+                "id_detail_pekerjaan" => 3,
             ],
             [
                 "id_bagian" => 1,
-                "nama_tugas" => "Masking permukaan mobil yang tidak di cat",
+                "id_detail_pekerjaan" => 4,
             ],
             [
                 "id_bagian" => 1,
-                "nama_tugas" => "Penyemprotan cat dasar",
+                "id_detail_pekerjaan" => 5,
             ],
             [
                 "id_bagian" => 1,
-                "nama_tugas" => "Pengecatan warna cat akhir",
+                "id_detail_pekerjaan" => 6,
             ],
             [
                 "id_bagian" => 1,
-                "nama_tugas" => "Polishing dan pengilapan",
+                "id_detail_pekerjaan" => 7,
             ],
             [
                 "id_bagian" => 2,
-                "nama_tugas" => "Pembersihan dan penggantian saringan udara",
+                "id_detail_pekerjaan" => 8,
             ],
             [
                 "id_bagian" => 2,
-                "nama_tugas" => "Penggantian saringan oli",
+                "id_detail_pekerjaan" => 9,
             ],
             [
                 "id_bagian" => 2,
-                "nama_tugas" => "Pemeriksaan dan penyetelan kekencangan tali kipas"
+                "id_detail_pekerjaan" => 10,
             ],
             [
                 "id_bagian" => 2,
-                "nama_tugas" => "Penyetelan Pengapian (Busi, Kabel busi, Koil dan distributor)"
+                "id_detail_pekerjaan" => 11,
             ],
             [
                 "id_bagian" => 2,
-                "nama_tugas" => "Pengukuran tekanan kompresi"
+                "id_detail_pekerjaan" => 12,
             ],
             [
                 "id_bagian" => 3,
-                "nama_tugas" => "Pelepasan bodi panel"
+                "id_detail_pekerjaan" => 13,
             ],
             [
                 "id_bagian" => 3,
-                "nama_tugas" => "Perbaiki body yang rusak/penyok"
+                "id_detail_pekerjaan" => 14,
             ],
             [
                 "id_bagian" => 3,
-                "nama_tugas" => "Pengamplasan",
+                "id_detail_pekerjaan" => 15,
             ],
             [
                 "id_bagian" => 3,
-                "nama_tugas" => "Pelapisan Antikarat",
+                "id_detail_pekerjaan" => 16,
             ],
             [
                 "id_bagian" => 3,
-                "nama_tugas" => "Efoksi cat dasar",
+                "id_detail_pekerjaan" => 17,
             ],
             [
                 "id_bagian" => 3,
-                "nama_tugas" => "Poles Finishing",
+                "id_detail_pekerjaan" => 18,
             ],
             [
                 "id_bagian" => 4,
-                "nama_tugas" => "Cleaning kotoran pada mobil",
+                "id_detail_pekerjaan" => 19,
             ],
             [
                 "id_bagian" => 4,
-                "nama_tugas" => "Memperbaiki cat yang tergores",
+                "id_detail_pekerjaan" => 20,
             ],
             [
                 "id_bagian" => 4,
-                "nama_tugas" => "Mengoleskan Wax pada mobil"
+                "id_detail_pekerjaan" => 21,
             ],
             [
                 "id_bagian" => 4,
-                "nama_tugas" => "Poles Finishing"
+                "id_detail_pekerjaan" => 22,
             ],
             [
                 "id_bagian" => 5,
-                "nama_tugas" => "Menghilangkan baret mobil",
+                "id_detail_pekerjaan" => 23,
             ],
             [
                 "id_bagian" => 5,
-                "nama_tugas" => "Poles sisa baret mobil",
+                "id_detail_pekerjaan" => 24,
             ],
             [
                 "id_bagian" => 5,
-                "nama_tugas" => "Oleskan obat poles",
+                "id_detail_pekerjaan" => 25,
             ],
             [
                 "id_bagian" => 5,
-                "nama_tugas" => "Cat Body",
+                "id_detail_pekerjaan" => 26,
             ],
             [
                 "id_bagian" => 5,
-                "nama_tugas" => "Pelapisan cat dengan wax",
+                "id_detail_pekerjaan" => 27,
             ],
             [
                 "id_bagian" => 5,
-                "nama_tugas" => "Poles Finishing"
+                "id_detail_pekerjaan" => 28,
             ],
         ]);
     }

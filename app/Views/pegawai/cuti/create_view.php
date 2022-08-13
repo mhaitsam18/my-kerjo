@@ -17,10 +17,10 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
-
                         <div class="alert-warning p-2">
                             <h4 class="font-weight-bold">PERHATIAN!</h4>
                             <p>Durasi cuti yang diperbolehkan maksimal 15 hari</p>
+                            <p>Hak Cuti tersisa <?= $sisa_cuti ?> hari lagi</p>
                         </div>
 
                         <form action="<?= base_url("pegawai/permohonan-cuti/simpan"); ?>" method="POST" enctype="multipart/form-data">
@@ -34,7 +34,7 @@
 
                             <div class="form-group">
                                 <label for="tanggal_mulai">Tanggal Mulai Cuti</label>
-                                <input type="date" name="tanggal_mulai" id="tanggal_mulai" class="form-control <?= ($validation->hasError("tanggal_mulai")) ? "is-invalid" : ""; ?>" value="">
+                                <input type="date" name="tanggal_mulai" id="tanggal_mulai" class="form-control <?= ($validation->hasError("tanggal_mulai")) ? "is-invalid" : ""; ?>" value="" min="<?= date('Y-m-d') ?>" max="<?= date('Y') ?>-12-31">
                                 <div class="invalid-feedback" role="alert">
                                     <?= $validation->getError("tanggal_mulai") ?>
                                 </div>
@@ -81,8 +81,32 @@
 <?= $this->endSection(); ?>
 
 <?= $this->section("scripts"); ?>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
 <script>
     $("#tanggal_mulai").val(new Date().toISOString().substring(0, 10));
     $("#tanggal_selesai").val(new Date().toISOString().substring(0, 10));
+
+    var tanggal_mulai = document.querySelector('#tanggal_mulai');
+    var sisa_cuti = <?= $sisa_cuti ?>;
+    var tanggal_selesai = document.querySelector('#tanggal_selesai');
+
+
+    tanggal_mulai.addEventListener('change', function() {
+
+        $.ajax({
+            url: "<?= base_url('pegawai/cuti/jsontanggalselesai') ?>",
+            type: "post",
+            dataType: "json",
+            data: {
+                tanggal_mulai: tanggal_mulai.value,
+                sisa_cuti: sisa_cuti
+            },
+            success: function(data) {
+                $('#tanggal_selesai').val(data.tanggal_mulai);
+                $('#tanggal_selesai').attr('min', data.tanggal_mulai);
+                $('#tanggal_selesai').attr('max', data.tanggal_selesai);
+            }
+        });
+    });
 </script>
 <?= $this->endSection(); ?>

@@ -5,6 +5,7 @@ namespace App\Controllers\Pegawai;
 use App\Controllers\BaseController;
 use App\Models\CutiModel;
 use Config\Services;
+use DateTime;
 
 class Cuti extends BaseController
 {
@@ -27,12 +28,30 @@ class Cuti extends BaseController
 
     public function create()
     {
+        $tahun_ini = date('Y');
+        $this->cuti_model->where('YEAR(tanggal_mulai)', $tahun_ini);
+        $this->cuti_model->where('id_pegawai', session()->get('id_pegawai'));
+        $this->cuti_model->where('status !=', 2);
+        $this->cuti_model->selectSum('durasi_cuti');
+        $cuti = $this->cuti_model->find();
+        $sisa_cuti = 15 - $cuti[0]['durasi_cuti'];
         $data = [
             "title" => "Tambah Permohonan Cuti",
+            "sisa_cuti" => $sisa_cuti,
             "validation" => Services::validation()
         ];
 
         return view("pegawai/cuti/create_view", $data);
+    }
+
+    public function jsonTanggalSelesai()
+    {
+        $tanggal_mulai = $this->request->getVar('tanggal_mulai');
+        $sisa_cuti = $this->request->getVar('sisa_cuti');
+
+        $tanggal_selesai = date('Y-m-d', strtotime("+$sisa_cuti days", strtotime($tanggal_mulai)));
+
+        echo json_encode(['tanggal_selesai' => $tanggal_selesai, 'tanggal_mulai' => $tanggal_mulai]);
     }
 
     public function store()
@@ -75,12 +94,24 @@ class Cuti extends BaseController
             return redirect()->back()->withInput();
         }
 
-        $is_exist = $this->cuti_model->where("id_pegawai", session()->get("id_pegawai"))
-            ->where("tahun", $tahun)
-            ->first();
+        // $is_exist = $this->cuti_model->where("id_pegawai", session()->get("id_pegawai"))
+        //     ->where("tahun", $tahun)
+        //     ->first();
 
-        if ($is_exist) {
-            session()->setFlashdata("error", "Anda hanya bisa melakukan permohonan cuti 1 kali dalam 1 tahun");
+        // if ($is_exist) {
+        //     // session()->setFlashdata("error", "Anda hanya bisa melakukan permohonan cuti 1 kali dalam 1 tahun");
+        //     session()->setFlashdata("error", "Anda hanya bisa melakukan permohonan cuti maksimal 15 hari dalam 1 tahun");
+        //     return redirect()->back()->withInput();
+        // }
+        $tahun_ini = date('Y');
+        $this->cuti_model->where('YEAR(tanggal_mulai)', $tahun_ini);
+        $this->cuti_model->where('id_pegawai', session()->get('id_pegawai'));
+        $this->cuti_model->where('status !=', 2);
+        $this->cuti_model->selectSum('durasi_cuti');
+        $cuti = $this->cuti_model->find();
+        $sisa_cuti = 15 - $cuti[0]['durasi_cuti'];
+        if ($sisa_cuti <= 0) {
+            session()->setFlashdata("error", "Anda hanya bisa melakukan permohonan cuti maksimal 15 hari dalam 1 tahun");
             return redirect()->back()->withInput();
         }
 
